@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:MIS/assets/style.dart';
+import 'package:MIS/route/route.dart';
+import 'package:MIS/assets/style.dart' as style;
+import './Item.dart';
+import './const.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,76 +61,66 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 // 上下边距 （主要用于 刘海  和  内置导航键）
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
+        value: SystemUiOverlayStyle.dark,
         child: Scaffold(
-            backgroundColor: bgColor,
-            body: Stack(alignment: Alignment.centerLeft, children: <Widget>[
-              MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: SingleChildScrollView(
-                  controller: this._controller,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 260.0,
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              height: 210.0,
+            backgroundColor: Colors.white,
+            body: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: style.width,
+                    padding:
+                        EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(color: style.borderColor, width: 0.5)),
+                      color: Colors.white,
+                    ),
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: InkWell(
+                            onTap: () {
+                              navigatorKey.currentState.pushNamed('/SearchPage',
+                                  arguments: {'from': 'student'});
+                            },
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(37, 177, 135, 1),
-                                  borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(50.0))),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(top: topPadding + 10),
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(37, 177, 135, 1),
-                                  borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(50.0))),
+                                color: style.grey,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Icon(Icons.people),
+                                  Text('搜索', style: style.hintStyle),
                                   Container(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                      'HI XXX 早上好',
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    width: 22,
+                                    height: 22,
+                                    child: Icon(Icons.search,
+                                        size: 22, color: style.hintColor),
                                   )
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10.0),
-                        padding: EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text('内容'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                            )),
+                      )
+                    ]),
                   ),
-                ),
+                  Expanded(
+                      flex: 1,
+                      child: ListView.builder(
+                          padding: EdgeInsets.only(top: 10),
+                          itemCount: stuData.length,
+                          itemBuilder: (context, index) {
+                            return Item(item: stuData[index]);
+                          }))
+                ],
               ),
-            ])));
+            )));
   }
 }

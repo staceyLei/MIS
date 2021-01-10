@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Course/Course.dart';
-import 'Message/Message.dart';
+import 'Statistics/Statistics.dart';
 import 'MyCenter/MyCenter.dart';
 import 'HomePage/HomePage.dart';
 
@@ -18,7 +18,7 @@ class _TabsState extends State<Tabs> {
   var pages = [
     HomePage(),
     Course(),
-    Message(),
+    Statistics(),
     MyCenter(),
   ];
   int _currentIndex;
@@ -45,19 +45,19 @@ class _TabsState extends State<Tabs> {
         iconSize: 24.0,
         items: [
           BottomNavigationBarItem(
-            title: Text('首页'),
-            icon: Icon(Icons.home),
-            activeIcon: Icon(Icons.home),
+            title: Text('学生'),
+            icon: Icon(Icons.people),
+            activeIcon: Icon(Icons.people),
           ),
+          // BottomNavigationBarItem(
+          //   title: Text('副页'),
+          //   icon: Icon(Icons.mail),
+          //   activeIcon: Icon(Icons.mail),
+          // ),
           BottomNavigationBarItem(
-            title: Text('副页'),
-            icon: Icon(Icons.mail),
-            activeIcon: Icon(Icons.mail),
-          ),
-          BottomNavigationBarItem(
-            title: Text('通知'),
-            icon: Icon(Icons.mail),
-            activeIcon: Icon(Icons.mail),
+            title: Text('统计'),
+            icon: Icon(Icons.device_hub),
+            activeIcon: Icon(Icons.device_hub),
           ),
           BottomNavigationBarItem(
             title: Text('我的'),

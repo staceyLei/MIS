@@ -18,6 +18,7 @@ const baseFontSize = 14.0;
 const sFontSize = 12.0;
 const titleSize = 18.0;
 const mFontSize = 16.0;
+Color hintColor = Color.fromRGBO(158, 158, 163, 1);
 const secondFontColor = Color.fromRGBO(191, 191, 191, 1);
 const baseFontColor = Color.fromRGBO(50, 49, 56, 1);
 TextStyle baseFontStyle =
@@ -26,8 +27,7 @@ TextStyle sFontStyle = TextStyle(color: baseFontColor, fontSize: sFontSize);
 TextStyle mFontStyle = TextStyle(color: baseFontColor, fontSize: mFontSize);
 TextStyle secondFontStyle =
     TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: 13.0);
-TextStyle hintStyle =
-    TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: baseFontSize);
+TextStyle hintStyle = TextStyle(color: hintColor, fontSize: baseFontSize);
 const warnColor = Color.fromRGBO(255, 235, 210, 1);
 const successColor = Color.fromRGBO(205, 255, 189, 1);
 TextStyle femaleStyle = TextStyle(
@@ -48,3 +48,4 @@ const orangeColor = Color.fromRGBO(255, 162, 0, 1);
 const greenColor = Color.fromRGBO(69, 182, 21, 1);
 const grey200 = Color.fromRGBO(200, 200, 200, 1);
 const blueBlack = Color.fromRGBO(68, 68, 79, 1);
+Border borderS = Border(bottom: BorderSide(color: borderColor, width: 0.5));
