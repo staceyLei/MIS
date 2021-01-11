@@ -10,8 +10,8 @@ class Item extends StatelessWidget {
     return InkWell(
         onTap: () {
           //带参数的路由跳转
-          // Navigator.pushNamed(context, '/CourseDetails',
-          //     arguments: {"courseId": item['id']});
+          Navigator.pushNamed(context, '/StudentDetail',
+              arguments: {"stuInfo": item});
         },
         child: Container(
           padding: EdgeInsets.fromLTRB(10, 5, 10, 5),

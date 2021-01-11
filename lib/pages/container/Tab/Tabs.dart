@@ -3,6 +3,7 @@ import 'Course/Course.dart';
 import 'Statistics/Statistics.dart';
 import 'MyCenter/MyCenter.dart';
 import 'HomePage/HomePage.dart';
+import 'package:MIS/assets/style.dart' as style;
 
 class Tabs extends StatefulWidget {
   final arguments;
@@ -17,7 +18,6 @@ class Tabs extends StatefulWidget {
 class _TabsState extends State<Tabs> {
   var pages = [
     HomePage(),
-    Course(),
     Statistics(),
     MyCenter(),
   ];
@@ -38,26 +38,21 @@ class _TabsState extends State<Tabs> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: this._changeIndex,
         currentIndex: this._currentIndex,
-        unselectedItemColor: Colors.black,
-        unselectedFontSize: 12.0,
-        selectedFontSize: 12.0,
+        unselectedItemColor: Colors.grey[600],
+        unselectedFontSize: 14.0,
+        selectedFontSize: 14.0,
         type: BottomNavigationBarType.fixed,
-        iconSize: 24.0,
+        iconSize: 26.0,
         items: [
           BottomNavigationBarItem(
             title: Text('学生'),
             icon: Icon(Icons.people),
             activeIcon: Icon(Icons.people),
           ),
-          // BottomNavigationBarItem(
-          //   title: Text('副页'),
-          //   icon: Icon(Icons.mail),
-          //   activeIcon: Icon(Icons.mail),
-          // ),
           BottomNavigationBarItem(
             title: Text('统计'),
-            icon: Icon(Icons.device_hub),
-            activeIcon: Icon(Icons.device_hub),
+            icon: Icon(Icons.insert_chart),
+            activeIcon: Icon(Icons.insert_chart),
           ),
           BottomNavigationBarItem(
             title: Text('我的'),

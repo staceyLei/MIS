@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:MIS/pages/container/Tab/Tabs.dart';
 import 'package:MIS/pages/container/SearchPage/SearchPage.dart';
+import 'package:MIS/pages/container/StudentDetail/StudentDetail.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
   '/SearchPage': (context, {arguments}) => SearchPage(),
+  '/StudentDetail': (context, {arguments}) => StudentDetail(
+        arguments: arguments,
+      ),
 };
 
 // 代表当前context的路由对象

@@ -39,31 +39,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-//渲染头部
-  List<Widget> renderNavBar() {
-    return <Widget>[
-      ClipOval(
-        child: Icon(Icons.people),
-      ),
-      SizedBox(width: 20),
-      Expanded(
-        child: Text('早上好 今天是周三',
-            style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.bold)),
-        flex: 1,
-      )
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
 // 上下边距 （主要用于 刘海  和  内置导航键）
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
+        value: SystemUiOverlayStyle.light,
         child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: style.themeColor,
             body: MediaQuery.removePadding(
               context: context,
               removeTop: true,
@@ -76,8 +58,8 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       border: Border(
                           bottom:
-                              BorderSide(color: style.borderColor, width: 0.5)),
-                      color: Colors.white,
+                              BorderSide(color: style.borderColor, width: 1)),
+                      color: style.themeColor,
                     ),
                     child: Row(children: <Widget>[
                       Expanded(
@@ -112,13 +94,17 @@ class _HomePageState extends State<HomePage> {
                     ]),
                   ),
                   Expanded(
-                      flex: 1,
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(top: 10),
-                          itemCount: stuData.length,
-                          itemBuilder: (context, index) {
-                            return Item(item: stuData[index]);
-                          }))
+                    flex: 1,
+                    child: Container(
+                        width: style.width,
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(top: 10),
+                            itemCount: stuData.length,
+                            itemBuilder: (context, index) {
+                              return Item(item: stuData[index]);
+                            })),
+                  )
                 ],
               ),
             )));

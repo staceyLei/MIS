@@ -49,3 +49,4 @@ const greenColor = Color.fromRGBO(69, 182, 21, 1);
 const grey200 = Color.fromRGBO(200, 200, 200, 1);
 const blueBlack = Color.fromRGBO(68, 68, 79, 1);
 Border borderS = Border(bottom: BorderSide(color: borderColor, width: 0.5));
+BorderSide borderSideS = BorderSide(color: borderColor, width: 0.5);

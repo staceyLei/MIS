@@ -13,8 +13,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List _history = [];
+  List _searchWord = [];
   List _searchRes = [];
+  String _searchType = 'name';
   TextEditingController _controller = TextEditingController();
   FocusNode _focusNode = FocusNode();
 
@@ -31,18 +32,23 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  List<Widget> _renderHistory() {
-    _history = history;
-    return _history.map((item) {
+  List<Widget> _renderKeyWord() {
+    _searchWord = searchWord;
+    return _searchWord.map((item) {
       return InkWell(
-          onTap: () {},
+          onTap: () {
+            this.setState(() {
+              _searchType = item['key'];
+            });
+          },
           child: Container(
-            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+            padding: EdgeInsets.fromLTRB(20, 6, 20, 6),
+            margin: EdgeInsets.fromLTRB(0, 0, 10, 10),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(232, 232, 232, 1),
-              borderRadius: BorderRadius.circular(15),
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(5),
             ),
-            child: Text(item, style: style.baseFontStyle),
+            child: Text(item['title'], style: style.mFontStyle),
           ));
     }).toList();
   }
@@ -50,71 +56,100 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      backgroundColor: style.grey,
-      body: Container(
-        padding: EdgeInsets.fromLTRB(15, style.topPadding + 10, 15, 0),
+      // resizeToAvoidBottomPadding: false,
+      backgroundColor: style.themeColor,
+      body: MediaQuery.removePadding(
+        context: context,
+        // removeTop: true,
         child: Column(children: [
-          // 搜索框
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.white,
-                    ),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: 20.0,
-                      ),
-                      child: TextField(
-                          controller: _controller,
-                          focusNode: _focusNode,
-                          style: style.mFontStyle,
-                          autofocus: true,
-                          decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 10),
-                              prefixIcon: Container(
-                                width: 22,
-                                height: 22,
-                                padding: EdgeInsets.all(2.5),
-                                child: Icon(
-                                  Icons.search,
-                                  size: 22,
-                                  color: style.hintColor,
-                                ),
-                              ),
-                              hintText: '搜索姓名',
-                              hintStyle: style.hintStyle
-                                  .copyWith(fontSize: style.mFontSize),
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ))),
-                    )),
-              ),
-              InkWell(
-                onTap: () {
-                  navigatorKey.currentState.pop();
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('取消',
-                      style: TextStyle(
-                          color: style.lightGrey, fontSize: style.mFontSize)),
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 20),
           Container(
-            child: Text(
-              '搜索指定内容',
-              style: style.mFontStyle,
+            width: style.width,
+            padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 5),
+            decoration: BoxDecoration(color: style.themeColor),
+            child: // 搜索框
+                Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.white,
+                      ),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: 20.0,
+                        ),
+                        child: TextField(
+                            controller: _controller,
+                            focusNode: _focusNode,
+                            style: style.mFontStyle,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(bottom: 11),
+                                prefixIcon: Container(
+                                  width: 22,
+                                  height: 22,
+                                  child: Icon(
+                                    Icons.search,
+                                    size: 22,
+                                    color: style.hintColor,
+                                  ),
+                                ),
+                                hintText: '搜索${typeMap[_searchType]}',
+                                hintStyle: style.hintStyle.copyWith(
+                                  fontSize: style.mFontSize,
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ))),
+                      )),
+                ),
+                InkWell(
+                  onTap: () {
+                    navigatorKey.currentState.pop();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('取消',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: style.mFontSize)),
+                  ),
+                )
+              ],
             ),
           ),
+          Expanded(
+            flex: 1,
+            child: Container(
+                decoration: BoxDecoration(color: style.grey),
+                width: style.width,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Container(
+                      child: Text(
+                        '按指定类别搜索',
+                        style: style.mFontStyle
+                            .copyWith(fontSize: style.titleSize),
+                      ),
+                    ),
+                    Container(
+                      child: Center(
+                        child: Container(
+                          width: style.width * 0.6,
+                          child: Wrap(
+                            children: _renderKeyWord(),
+                          ),
+                        ),
+                      ),
+                      width: style.width,
+                      padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                    )
+                  ],
+                )),
+          )
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: <Widget>[
